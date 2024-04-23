@@ -4,7 +4,7 @@ from fastapi.requests import Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from sqlmodel import Session
-from quiz_backend.controllers.admin_controllers import admin_login, set_category
+from quiz_backend.controllers.admin_controllers import admin_login, set_category , set_quiz_level ,  set_questions , set_choice
 from quiz_backend.db.db_connector import createTable
 from contextlib import asynccontextmanager
 from quiz_backend.utils.exception import NotFoundException, ConflictException, InvalidInputException
@@ -13,6 +13,7 @@ from typing import Annotated
 from .utils.exception import NotFoundException, ConflictException, InvalidInputException
 from quiz_backend.controllers.quiz_controllers import get_categrios, get_question, get_quiz_diff
 from quiz_backend.db.db_connector import get_session
+from quiz_backend.controllers.openai_apis.question_generate import openai_question
 
 # Define async context manager for application lifespan
 @asynccontextmanager
@@ -206,3 +207,24 @@ def admin_auth(admin = Depends(admin_login)):
 @app.post('/api/catgory_add')
 def admin_auth(add_catgory = Depends(set_category)):
     return add_catgory
+
+
+@app.post('/api/quiz_level')
+def add_quiz_level_route(route_func = Depends(set_quiz_level)):
+    return route_func
+
+
+
+@app.post('/api/add_question')
+def add_quiz_question(route_func = Depends(set_questions)):
+    return route_func
+
+
+@app.post('/api/add_choices')
+def add_choices_route(route_func = Depends(set_choice)):
+    return route_func
+
+
+@app.get('/api/openai_question')
+def ai_route(route_func = Depends(openai_question)):
+    return route_func

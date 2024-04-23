@@ -27,9 +27,8 @@ def get_choices(question_id : int , session : Session):
 
 
 
-
 def get_question(question_level_id : int , session : Session):
-    statment = select(Quiz).where(question_level_id == Quiz.quiz_level_id).order_by(func.random).limit(10)
+    statment = select(Quiz).where(question_level_id == Quiz.quizLevel_id).order_by(func.random()).limit(10)
     questions = session.exec(statment).all()
     data = []
     for question in questions:

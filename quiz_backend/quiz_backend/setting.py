@@ -19,3 +19,4 @@ algorithm = config.get("ALGORITHM")
 
 admin_name = config.get('ADMIN_EMAIL')
 admin_password = config.get('ADMIN_PASSWORD')
+opena_ai_api_key = config.get('OPEN_AI_API')
